@@ -3,7 +3,21 @@ const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
 
 const registerUser = async (req, res) => {
-  const { email, name, password } = req.body;
+  const {
+    email,
+    lastName,
+    firstName,
+    country,
+    phone,
+    accountOwnership,
+    typeOfAccount,
+    identity,
+    occupation,
+    address,
+    maritalStatus,
+    dob,
+    password,
+  } = req.body;
 
   let role;
   const isFirstAccount = (await User.countDocuments({})) === 0;
@@ -16,7 +30,22 @@ const registerUser = async (req, res) => {
   } else {
     role = 'user';
   }
-  const user = await User.create({ role, email, name, password });
+  const user = await User.create({
+    role,
+    email,
+    lastName,
+    firstName,
+    country,
+    phone,
+    accountOwnership,
+    typeOfAccount,
+    identity,
+    occupation,
+    address,
+    maritalStatus,
+    dob,
+    password,
+  });
   const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({ user: user, token: token });
 };

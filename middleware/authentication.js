@@ -12,13 +12,40 @@ const auth = (req, res, next) => {
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
 
-    const { userId, name, email, role } = payload;
+    const {
+      userId,
+      role,
+      email,
+      lastName,
+      firstName,
+      country,
+      phone,
+      accountOwnership,
+      typeOfAccount,
+      identity,
+      occupation,
+      address,
+      maritalStatus,
+      dob,
+      password,
+    } = payload;
 
     req.user = {
       userId,
-      name,
-      email,
       role,
+      email,
+      lastName,
+      firstName,
+      country,
+      phone,
+      accountOwnership,
+      typeOfAccount,
+      identity,
+      occupation,
+      address,
+      maritalStatus,
+      dob,
+      password,
     };
     next();
   } catch (error) {
