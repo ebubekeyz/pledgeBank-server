@@ -17,14 +17,74 @@ const UserSchema = new mongoose.Schema(
       unique: true,
     },
 
-    name: {
+    firstName: {
       type: String,
-      required: [true, 'Please provide a name'],
+      required: true,
       minlength: [3, 'Name is too short'],
+    },
+    lastName: {
+      type: String,
+      required: true,
+      minlength: [3, 'Name is too short'],
+    },
+    country: {
+      type: String,
+      required: true,
     },
     password: {
       type: String,
-      required: [true, 'Please provide a password'],
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    accountOwnership: {
+      type: String,
+      enum: ['Individual', 'Joint Account', 'Trust Account'],
+      required: true,
+    },
+    typeOfAccount: {
+      type: String,
+      enum: [
+        'Savings Account',
+        'Checking Account',
+        'Money Market Account',
+        'Certificate Of Deposit Account',
+      ],
+    },
+    identity: {
+      type: String,
+      enum: [
+        'Social Security Number',
+        'Passport Number',
+        "Driver's License Number ",
+      ],
+      required: true,
+    },
+    occupation: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    dob: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: [
+        'single',
+        'married',
+        'divorced',
+        'separated',
+        'widowed',
+        'registered partnership',
+      ],
+      required: true,
     },
     role: {
       type: String,
