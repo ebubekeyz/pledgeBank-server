@@ -62,6 +62,10 @@ const UserSchema = new mongoose.Schema(
       ],
       required: true,
     },
+    idNumber: {
+      type: Number,
+      required: true,
+    },
     occupation: {
       type: String,
       required: true,
@@ -71,6 +75,10 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     dob: {
+      type: String,
+      required: true,
+    },
+    currency: {
       type: String,
       required: true,
     },
@@ -112,6 +120,7 @@ UserSchema.methods.createJWT = function () {
       firstName: this.firstName,
       lastName: this.lastName,
       country: this.country,
+      idNumber: this.idNumber,
       phone: this.phone,
       accountOwnership: this.accountOwnership,
       typeOfAccount: this.typeOfAccount,

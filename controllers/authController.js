@@ -4,6 +4,8 @@ const { BadRequestError, UnauthorizedError } = require('../errors');
 
 const registerUser = async (req, res) => {
   const {
+    currency,
+    idNumber,
     email,
     lastName,
     firstName,
@@ -32,6 +34,8 @@ const registerUser = async (req, res) => {
   }
   const user = await User.create({
     role,
+    idNumber,
+    currency,
     email,
     lastName,
     firstName,
