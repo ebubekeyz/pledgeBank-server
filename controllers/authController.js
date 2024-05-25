@@ -3,21 +3,23 @@ const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
 
 const registerUser = async (req, res) => {
-  const {
-    currency,
+  let {
     idNumber,
+    accountNumber,
     email,
     lastName,
     firstName,
     country,
     phone,
     accountOwnership,
+    sortCode,
     typeOfAccount,
     identity,
     occupation,
     address,
     maritalStatus,
     dob,
+    terms,
     password,
   } = req.body;
 
@@ -32,10 +34,24 @@ const registerUser = async (req, res) => {
   } else {
     role = 'user';
   }
+
+  const getRandomTenDigit = () => {
+    return Math.floor(Math.random() * 10000000000);
+  };
+
+  let randomTenDigit = getRandomTenDigit();
+
+  const getRandomEightDigit = () => {
+    return Math.floor(Math.random() * 100000000);
+  };
+
+  let randomEightDigit = getRandomEightDigit();
+
   const user = await User.create({
     role,
     idNumber,
-    currency,
+    accountNumber: randomTenDigit,
+    sortCode: randomEightDigit,
     email,
     lastName,
     firstName,
@@ -46,6 +62,7 @@ const registerUser = async (req, res) => {
     identity,
     occupation,
     address,
+    terms,
     maritalStatus,
     dob,
     password,

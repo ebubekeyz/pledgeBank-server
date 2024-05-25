@@ -35,6 +35,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    accountNumber: {
+      type: String,
+    },
+    sortCode: {
+      type: String,
+    },
     phone: {
       type: String,
       required: true,
@@ -70,6 +76,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    terms: {
+      type: String,
+      required: true,
+    },
     address: {
       type: String,
       required: true,
@@ -78,10 +88,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    currency: {
-      type: String,
-      required: true,
-    },
+
     maritalStatus: {
       type: String,
       enum: [
@@ -128,9 +135,11 @@ UserSchema.methods.createJWT = function () {
       occupation: this.occupation,
       address: this.address,
       dob: this.dob,
+      accountNumber: this.accountNumber,
       maritalStatus: this.maritalStatus,
       email: this.email,
       role: this.role,
+      sortCode: this.sortCode,
     },
     process.env.JWT_SECRET,
     {

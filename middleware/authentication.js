@@ -28,8 +28,9 @@ const auth = (req, res, next) => {
       maritalStatus,
       dob,
       password,
-      currency,
       idNumber,
+      accountNumber,
+      sortCode,
     } = payload;
 
     req.user = {
@@ -48,8 +49,9 @@ const auth = (req, res, next) => {
       maritalStatus,
       dob,
       password,
-      currency,
       idNumber,
+      accountNumber,
+      sortCode,
     };
     next();
   } catch (error) {
