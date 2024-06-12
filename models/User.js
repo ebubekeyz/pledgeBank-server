@@ -68,6 +68,13 @@ const UserSchema = new mongoose.Schema(
       ],
       required: true,
     },
+    gender: {
+      type: String,
+      enum: ['Male', 'Female'],
+    },
+    noc: {
+      type: String,
+    },
     idNumber: {
       type: Number,
       required: true,
@@ -78,7 +85,6 @@ const UserSchema = new mongoose.Schema(
     },
     terms: {
       type: String,
-      required: true,
     },
     address: {
       type: String,
@@ -100,6 +106,14 @@ const UserSchema = new mongoose.Schema(
         'Registered Partnership',
       ],
       required: true,
+    },
+    employmentStatus: {
+      type: String,
+      enum: ['Student', 'Unemployed', 'Retired', 'Self-Employed', 'Employed'],
+    },
+    relationship: {
+      type: String,
+      enum: ['Brother', 'Father', 'Mother', 'Sister', 'Uncle', 'Aunt'],
     },
     role: {
       type: String,

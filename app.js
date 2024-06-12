@@ -10,6 +10,8 @@ const path = require('path');
 
 const authRouter = require('./routes/authRouter');
 const withdrawRouter = require('./routes/withdrawRouter');
+const contactRouter = require('./routes/contactRouter');
+const addFundRouter = require('./routes/addFundRouter');
 
 const uploadRouter = require('./routes/uploadRouter');
 const fileUpload = require('express-fileupload');
@@ -46,6 +48,8 @@ app.use(express.json());
 
 app.use('/api/auth', authRouter);
 app.use('/api/withdraw', withdrawRouter);
+app.use('/api/addFund', addFundRouter);
+app.use('/api/contact', contactRouter);
 app.use('/api/upload', uploadRouter);
 
 app.use(errorHandlerMiddleware);

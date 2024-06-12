@@ -9,7 +9,17 @@ const createWithdraw = async (req, res) => {
 };
 
 const getAllWithdraws = async (req, res) => {
-  let { user, date, status, amount, sort } = req.query;
+  let {
+    user,
+    date,
+    accountName,
+    narration,
+    accountNumber,
+    bank,
+    status,
+    amount,
+    sort,
+  } = req.query;
 
   const queryObject = {
     user: req.user.userId,
@@ -19,6 +29,33 @@ const getAllWithdraws = async (req, res) => {
 
   if (user) {
     result = Withdraw.find({ user: req.user.userId, user: { $eq: user } });
+  }
+
+  if (accountNumber) {
+    result = Withdraw.find({
+      user: req.user.userId,
+      accountNumber: { $eq: accountNumber },
+    });
+  }
+  if (accountName) {
+    result = Withdraw.find({
+      user: req.user.userId,
+      accountName: { $regex: accountName, $options: 'i' },
+    });
+  }
+
+  if (bank) {
+    result = Withdraw.find({
+      user: req.user.userId,
+      bank: { $regex: bank, $options: 'i' },
+    });
+  }
+
+  if (narration) {
+    result = Withdraw.find({
+      user: req.user.userId,
+      narration: { $regex: narration, $options: 'i' },
+    });
   }
 
   if (status) {
@@ -32,14 +69,14 @@ const getAllWithdraws = async (req, res) => {
   }
 
   if (sort === 'a-z') {
-    result = result.sort('name');
+    result = result.sort('accountName');
   }
   if (sort === 'z-a') {
-    result = result.sort('-name');
+    result = result.sort('-accountName');
   }
 
   if (amount) {
-    result = Withdraw.find({ user: req.user.userId, amount: { $lte: amount } });
+    result = Withdraw.find({ user: req.user.userId, amount: { $eq: amount } });
   }
 
   if (date) {

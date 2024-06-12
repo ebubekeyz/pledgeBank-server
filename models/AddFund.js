@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 
-const WithdrawSchema = new mongoose.Schema(
+const getRandomTenDigit = () => {
+  return Math.floor(Math.random() * 10000000000);
+};
+
+let randomTenDigit = getRandomTenDigit();
+
+const AddFundSchema = new mongoose.Schema(
   {
     bank: {
-      type: String,
-      required: true,
-    },
-    accountNumber: {
       type: String,
       required: true,
     },
@@ -15,19 +17,23 @@ const WithdrawSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    accountNumber: {
+      type: String,
+      required: true,
+    },
+    sortCode: {
+      type: String,
+      default: randomTenDigit,
+    },
+
     amount: {
       type: Number,
       required: true,
     },
-    narration: {
-      type: String,
-      required: true,
-    },
-
     status: {
       type: String,
-      enum: ['pending', 'sent'],
-      default: 'pending',
+      enum: ['processing', 'sent', 'expired'],
+      default: 'processing',
     },
     date: {
       type: String,
@@ -42,4 +48,4 @@ const WithdrawSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Withdraw', WithdrawSchema);
+module.exports = mongoose.model('AddFund', AddFundSchema);

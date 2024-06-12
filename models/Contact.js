@@ -1,34 +1,35 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+const validator = require('validator');
 
-const WithdrawSchema = new mongoose.Schema(
+const ContactSchema = new mongoose.Schema(
   {
-    bank: {
+    name: {
       type: String,
       required: true,
     },
-    accountNumber: {
+    phone: {
       type: String,
       required: true,
     },
-    accountName: {
+    email: {
+      type: String,
+      required: [true, 'Please enter email'],
+      validate: {
+        validator: validator.isEmail,
+        message: 'Please provide a valid email',
+      },
+      unique: true,
+    },
+    subject: {
       type: String,
       required: true,
     },
-    amount: {
-      type: Number,
-      required: true,
-    },
-    narration: {
+    comment: {
       type: String,
       required: true,
     },
 
-    status: {
-      type: String,
-      enum: ['pending', 'sent'],
-      default: 'pending',
-    },
     date: {
       type: String,
       default: moment().format('YYYY-DD-MM'),
@@ -42,4 +43,4 @@ const WithdrawSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Withdraw', WithdrawSchema);
+module.exports = mongoose.model('Contact', ContactSchema);
