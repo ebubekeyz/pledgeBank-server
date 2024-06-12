@@ -8,6 +8,10 @@ const AccountSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    bank: {
+      type: String,
+      required: true,
+    },
     accountNumber: {
       type: String,
       required: true,

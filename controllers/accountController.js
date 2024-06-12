@@ -9,7 +9,7 @@ const createAccount = async (req, res) => {
 };
 
 const getAllAccounts = async (req, res) => {
-  let { user, date, name, accountNumber, sort } = req.query;
+  let { user, date, name, accountNumber, bank, sort } = req.query;
 
   const queryObject = {
     user: req.user.userId,
@@ -47,9 +47,14 @@ const getAllAccounts = async (req, res) => {
       name: { $regex: name, $options: 'i' },
     });
   }
+  if (bank) {
+    result = Account.find(queryObject, {
+      bank: { $regex: bank, $options: 'i' },
+    });
+  }
+
   if (date) {
-    result = Account.find({
-      user: req.user.userId,
+    result = Account.find(queryObject, {
       date: { $regex: date, $options: 'i' },
     });
   }
@@ -74,7 +79,7 @@ const getAllAccounts = async (req, res) => {
 };
 
 const getAccounts = async (req, res) => {
-  let { user, date, name, accountNumber, sort } = req.query;
+  let { user, date, name, accountNumber, bank, sort } = req.query;
 
   let result = Account.find({});
 
@@ -111,6 +116,12 @@ const getAccounts = async (req, res) => {
   if (date) {
     result = Account.find({
       date: { $regex: date, $options: 'i' },
+    });
+  }
+
+  if (bank) {
+    result = Account.find({
+      bank: { $regex: bank, $options: 'i' },
     });
   }
 
@@ -151,7 +162,7 @@ const editSingleAccount = async (req, res) => {
   });
 
   if (!account) {
-    throw new BadRequestError(`Account with id ${AccountId} does not exist`);
+    throw new BadRequestError(`Account with id ${accountId} does not exist`);
   }
   res.status(StatusCodes.OK).json({ account: account });
 };
