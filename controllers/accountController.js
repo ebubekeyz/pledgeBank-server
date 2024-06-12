@@ -158,7 +158,7 @@ const editSingleAccount = async (req, res) => {
 
 const editUserAccount = async (req, res) => {
   const { id: userId } = req.params;
-  const account = await Account.updateMany({ user: userId }, req.body);
+  const account = await Account.findOneAndUpdate({ user: userId }, req.body);
 
   res.status(StatusCodes.OK).json({ account: account });
 };
