@@ -167,7 +167,7 @@ const editSingleContact = async (req, res) => {
 
 const editUserContact = async (req, res) => {
   const { id: userId } = req.params;
-  const contact = await Contact.findOneAndUpdate({ user: userId }, req.body);
+  const contact = await Contact.updateMany({ user: userId }, req.body);
 
   res.status(StatusCodes.OK).json({ contact: contact });
 };
