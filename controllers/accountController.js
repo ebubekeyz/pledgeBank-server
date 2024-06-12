@@ -9,7 +9,7 @@ const createAccount = async (req, res) => {
 };
 
 const getAllAccounts = async (req, res) => {
-  let { user, date, name, accountNumber } = req.query;
+  let { user, date, name, accountNumber, sort } = req.query;
 
   const queryObject = {
     user: req.user.userId,
