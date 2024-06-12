@@ -9,7 +9,7 @@ const createContact = async (req, res) => {
 };
 
 const getAllContacts = async (req, res) => {
-  let { user, date, status, amount, sort } = req.query;
+  let { user, date, status, name, subject, sort } = req.query;
 
   const queryObject = {
     user: req.user.userId,
@@ -38,13 +38,20 @@ const getAllContacts = async (req, res) => {
     result = result.sort('-name');
   }
 
-  if (amount) {
-    result = Contact.find({ user: req.user.userId, amount: { $lte: amount } });
+  if (name) {
+    result = Contact.find(queryObject, {
+      name: { $regex: name, $options: 'i' },
+    });
+  }
+
+  if (subject) {
+    result = Contact.find(queryObject, {
+      subject: { $regex: subject, $options: 'i' },
+    });
   }
 
   if (date) {
-    result = Contact.find({
-      user: req.user.userId,
+    result = Contact.find(queryObject, {
       date: { $regex: date, $options: 'i' },
     });
   }
@@ -69,7 +76,7 @@ const getAllContacts = async (req, res) => {
 };
 
 const getContacts = async (req, res) => {
-  let { user, date, status, amount, sort } = req.query;
+  let { user, date, status, name, subject, sort } = req.query;
 
   let result = Contact.find({});
 
@@ -98,8 +105,16 @@ const getContacts = async (req, res) => {
     result = result.sort('-name');
   }
 
-  if (amount) {
-    result = Contact.find({ amount: { $lte: amount } });
+  if (name) {
+    result = Contact.find({
+      name: { $regex: name, $options: 'i' },
+    });
+  }
+
+  if (subject) {
+    result = Contact.find({
+      subject: { $regex: subject, $options: 'i' },
+    });
   }
 
   if (date) {
@@ -152,7 +167,7 @@ const editSingleContact = async (req, res) => {
 
 const editUserContact = async (req, res) => {
   const { id: userId } = req.params;
-  const contact = await Contact.updateMany({ user: userId }, req.body);
+  const contact = await Contact.findOneAndUpdate({ user: userId }, req.body);
 
   res.status(StatusCodes.OK).json({ contact: contact });
 };

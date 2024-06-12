@@ -8,26 +8,19 @@ const ContactSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phone: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: [true, 'Please enter email'],
-      validate: {
-        validator: validator.isEmail,
-        message: 'Please provide a valid email',
-      },
-      unique: true,
-    },
+
     subject: {
       type: String,
       required: true,
     },
-    comment: {
+    message: {
       type: String,
       required: true,
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'sent'],
+      default: 'pending',
     },
 
     date: {
