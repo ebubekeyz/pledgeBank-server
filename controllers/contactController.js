@@ -88,7 +88,7 @@ const getContacts = async (req, res) => {
 
   if (status) {
     result = Contact.find({
-      status: { $eq: status },
+      status: { $regex: status, $options: 'i' },
     });
   }
   if (sort === 'latest') {
