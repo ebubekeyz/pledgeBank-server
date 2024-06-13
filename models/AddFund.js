@@ -17,6 +17,12 @@ const AddFundSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    date1: {
+      type: String,
+    },
+    date1: {
+      type: String,
+    },
     accountNumber: {
       type: String,
       required: true,
@@ -40,8 +46,7 @@ const AddFundSchema = new mongoose.Schema(
       default: moment().format('YYYY-DD-MM'),
     },
     user: {
-      type: mongoose.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: true,
     },
   },

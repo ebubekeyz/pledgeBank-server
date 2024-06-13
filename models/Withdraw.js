@@ -29,13 +29,18 @@ const WithdrawSchema = new mongoose.Schema(
       enum: ['pending', 'sent'],
       default: 'pending',
     },
+    date1: {
+      type: String,
+    },
+    date2: {
+      type: String,
+    },
     date: {
       type: String,
       default: moment().format('YYYY-DD-MM'),
     },
     user: {
-      type: mongoose.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: true,
     },
   },

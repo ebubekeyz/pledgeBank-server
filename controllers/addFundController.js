@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
 
 const createAddFund = async (req, res) => {
-  req.body.user = req.user.userId;
+  // req.body.user = req.user.userId;
   const addFund = await AddFund.create(req.body);
   res.status(StatusCodes.CREATED).json({ attributes: addFund });
 };
