@@ -20,7 +20,7 @@ const AddFundSchema = new mongoose.Schema(
     date1: {
       type: String,
     },
-    date1: {
+    date2: {
       type: String,
     },
     accountNumber: {
