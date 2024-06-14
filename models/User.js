@@ -16,6 +16,10 @@ const UserSchema = new mongoose.Schema(
       },
       unique: true,
     },
+    passport: {
+      type: String,
+      default: '/uploads/avatar.png',
+    },
 
     firstName: {
       type: String,
