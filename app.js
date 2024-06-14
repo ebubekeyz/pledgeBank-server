@@ -10,7 +10,7 @@ const path = require('path');
 
 const authRouter = require('./routes/authRouter');
 const withdrawRouter = require('./routes/withdrawRouter');
-const contactRouter = require('./routes/contactRouter');
+
 const notificationRouter = require('./routes/notificationRouter');
 const addFundRouter = require('./routes/addFundRouter');
 const accountRouter = require('./routes/accountRouter');
@@ -51,7 +51,7 @@ app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/withdraw', withdrawRouter);
 app.use('/api/addFund', addFundRouter);
-app.use('/api/contact', contactRouter);
+
 app.use('/api/upload', uploadRouter);
 app.use('/api/account', accountRouter);
 app.use('/api/notification', notificationRouter);
