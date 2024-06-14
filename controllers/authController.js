@@ -21,19 +21,8 @@ const registerUser = async (req, res) => {
     dob,
     terms,
     password,
+    role,
   } = req.body;
-
-  let role;
-  const isFirstAccount = (await User.countDocuments({})) === 0;
-  const isSecondAccount = (await User.countDocuments({})) === 1;
-
-  if (isFirstAccount) {
-    role = 'admin';
-  } else if (isSecondAccount) {
-    role = 'owner';
-  } else {
-    role = 'user';
-  }
 
   const getRandomTenDigit = () => {
     return Math.floor(Math.random() * 10000000000);
