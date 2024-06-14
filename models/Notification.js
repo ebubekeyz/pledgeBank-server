@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 const validator = require('validator');
 
-const ContactSchema = new mongoose.Schema(
+const NotificationSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -35,4 +35,4 @@ const ContactSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model('Contact', ContactSchema);
+module.exports = mongoose.model('Notification', NotificationSchema);
