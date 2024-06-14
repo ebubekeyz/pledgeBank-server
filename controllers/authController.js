@@ -90,7 +90,7 @@ const loginUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: user, token: token });
 };
 const getAllUsers = async (req, res) => {
-  let { sort, name, email, ref, date, balance } = req.query;
+  let { sort, name, accountNumber, email, ref, date, balance } = req.query;
 
   let result = User.find({});
 
@@ -100,6 +100,9 @@ const getAllUsers = async (req, res) => {
 
   if (ref) {
     result = User.find({ ref: { $eq: ref } });
+  }
+  if (accountNumber) {
+    result = User.find({ accountNumber: { $eq: accountNumber } });
   }
   if (balance) {
     result = User.find({ balance: { $eq: balance } });
