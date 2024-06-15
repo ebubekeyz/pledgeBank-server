@@ -122,7 +122,7 @@ const getAllUsers = async (req, res) => {
   }
 
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 21;
+  const limit = Number(req.query.limit) || 50;
   const skip = (page - 1) * limit;
 
   result = result.skip(skip).limit(limit);
