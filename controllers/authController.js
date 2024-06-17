@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
+const nodemailer = require('nodemailer');
 
 const registerUser = async (req, res) => {
   let {
@@ -61,7 +62,7 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, otp } = req.body;
   if (!email) {
     throw new BadRequestError('Please provide an email');
   }
@@ -76,7 +77,35 @@ const loginUser = async (req, res) => {
 
   const token = user.createJWT();
 
-  res.status(StatusCodes.OK).json({ user: user, token: token });
+  const getRandomTenDigit = () => {
+    return Math.floor(Math.random() * 1000000);
+  };
+  let randomTenDigit = getRandomTenDigit();
+
+  let testAccount = await nodemailer.createTestAccount();
+
+  const transporter = nodemailer.createTransport({
+    host: process.env.GMAIL_HOST,
+    port: process.env.GMAIL_PORT,
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS,
+    },
+  });
+
+  let info = await transporter.sendMail({
+    from: `"Pledge Bank PLC" <team.pledge.bank@gmail.com>`,
+    to: `${email}`,
+    subject: `OTP Verification Code`,
+    html: `<div style="text-align: center; margin: 1rem auto">
+    <p>Your One Time Password is: </p>
+    <h1>${randomTenDigit}</h1>
+    </div>`,
+  });
+
+  res
+    .status(StatusCodes.OK)
+    .json({ user: user, token: token, otp: randomTenDigit });
 };
 const getAllUsers = async (req, res) => {
   let { sort, name, accountNumber, email, ref, date, balance } = req.query;

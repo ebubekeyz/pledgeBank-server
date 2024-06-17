@@ -3,7 +3,6 @@ const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
 
 const createWithdraw = async (req, res) => {
-  req.body.user = req.user.userId;
   const withdraw = await Withdraw.create(req.body);
   res.status(StatusCodes.CREATED).json({ attributes: withdraw });
 };

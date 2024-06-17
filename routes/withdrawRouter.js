@@ -19,7 +19,7 @@ const {
 router
   .route('/')
   .get(auth, getAllWithdraws)
-  .post(auth, createWithdraw)
+  .post(createWithdraw)
   .delete(auth, authPermission('admin', 'owner'), deleteAllWithdraws);
 
 router.route('/allPack').get(getWithdraws);
