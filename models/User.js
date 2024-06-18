@@ -20,7 +20,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: '/uploads/avatar.png',
     },
-
+    balance: {
+      type: String,
+    },
     firstName: {
       type: String,
       required: true,
