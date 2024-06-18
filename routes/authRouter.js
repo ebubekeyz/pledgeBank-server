@@ -14,6 +14,7 @@ const {
   deleteAllUsers,
   showCurrentUser,
   updateUserPassword,
+  passwordReset,
 } = require('../controllers/authController');
 
 router
@@ -28,6 +29,7 @@ router
   .route('/:id')
   .patch(auth, editSingleUser)
   .delete(auth, authPermission('admin', 'owner'), deleteSingleUser)
-  .get(auth, getSingleUser);
+  .get(auth, getSingleUser)
+  .patch(auth, passwordReset);
 
 module.exports = router;

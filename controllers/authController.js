@@ -2,6 +2,7 @@ const User = require('../models/User');
 const { StatusCodes } = require('http-status-codes');
 const { BadRequestError, UnauthorizedError } = require('../errors');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcryptjs');
 
 const registerUser = async (req, res) => {
   let {
@@ -232,7 +233,46 @@ const updateUserPassword = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: user, token: token });
 };
 
+const passwordReset = async (req, res) => {
+  const { email, newPassword, password } = req.body;
+
+  const checkEmail = await User.findOne({ email });
+  if (!checkEmail) {
+    throw new BadRequestError('Email does not exist');
+  }
+
+  if (newPassword !== password) {
+    throw new BadRequestError('Password did not match');
+  }
+
+  if (!newPassword || !password) {
+    throw new BadRequestError('No field must be empty');
+  }
+
+  const { id: userId } = req.params;
+
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+
+  const user = await User.findOneAndUpdate(
+    { _id: userId },
+    { newPassword, password: hashPassword },
+    { new: true, runValidators: true }
+  );
+
+  if (!user) {
+    throw new UnauthorizedError(`No user with id ${userId} `);
+  }
+
+  const token = user.createJWT();
+
+  res
+    .status(StatusCodes.OK)
+    .json({ user: user, token: token, msg: 'Password has been reset' });
+};
+
 module.exports = {
+  passwordReset,
   showCurrentUser,
   registerUser,
   loginUser,
