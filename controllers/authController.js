@@ -233,13 +233,19 @@ const updateUserPassword = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: user, token: token });
 };
 
-const passwordReset = async (req, res) => {
-  const { email, newPassword, password } = req.body;
+const emailPassword = async (req, res) => {
+  const { email } = req.body;
 
   const checkEmail = await User.findOne({ email });
   if (!checkEmail) {
     throw new BadRequestError('Email does not exist');
   }
+
+  res.status(StatusCodes.OK).json({ user: checkEmail });
+};
+
+const passwordReset = async (req, res) => {
+  const { newPassword, password } = req.body;
 
   if (newPassword !== password) {
     throw new BadRequestError('Password did not match');
@@ -282,4 +288,5 @@ module.exports = {
   deleteSingleUser,
   deleteAllUsers,
   updateUserPassword,
+  emailPassword,
 };

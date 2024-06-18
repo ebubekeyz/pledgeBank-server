@@ -15,6 +15,7 @@ const {
   showCurrentUser,
   updateUserPassword,
   passwordReset,
+  emailPassword,
 } = require('../controllers/authController');
 
 router
@@ -25,11 +26,13 @@ router.route('/local/register').post(registerUser);
 router.route('/local').post(loginUser);
 router.route('/showMe').get(auth, showCurrentUser);
 router.route('/updatePassword').patch(auth, updateUserPassword);
+router.route('/emailPassword').post(emailPassword);
 router
   .route('/:id')
   .patch(auth, editSingleUser)
   .delete(auth, authPermission('admin', 'owner'), deleteSingleUser)
-  .get(auth, getSingleUser)
-  .patch(auth, passwordReset);
+  .get(auth, getSingleUser);
+
+router.route('/:id/passwordReset').patch(passwordReset);
 
 module.exports = router;
