@@ -33,7 +33,7 @@ const helmet = require('helmet');
 let originUrl =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:5173'
-    : 'https://pledge2.netlify.app';
+    : 'https://pledgebank.netlify.app';
 
 app.use(
   cors({
