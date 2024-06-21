@@ -25,10 +25,15 @@ const cors = require('cors');
 const xss = require('xss-clean');
 const helmet = require('helmet');
 
+// let originUrl =
+//   process.env.NODE_ENV !== 'production'
+//     ? 'http://localhost:5174'
+//     : 'https://pledge-bank.com';
+
 let originUrl =
   process.env.NODE_ENV !== 'production'
     ? 'http://localhost:5173'
-    : 'https://pledge-bank.com';
+    : 'https://pledge2.netlify.app';
 
 app.use(
   cors({
