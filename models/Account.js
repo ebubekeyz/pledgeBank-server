@@ -24,6 +24,11 @@ const AccountSchema = new mongoose.Schema(
       type: String,
       default: moment().format('YYYY-DD-MM'),
     },
+    status: {
+      type: String,
+      enum: ['true', 'false'],
+      default: 'false',
+    },
     user: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
