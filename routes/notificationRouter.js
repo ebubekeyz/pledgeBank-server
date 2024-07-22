@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const auth = require('../middleware/authentication');
-const authPermission = require('../middleware/authPermission');
+const auth = require('../middleware/authentication.js');
+const authPermission = require('../middleware/authPermission.js');
 
 const {
   createNotification,
@@ -14,7 +14,7 @@ const {
   editSingleNotification,
   getNotifications,
   editUserNotification,
-} = require('../controllers/notificationController');
+} = require('../controllers/notificationController.js');
 
 router
   .route('/')

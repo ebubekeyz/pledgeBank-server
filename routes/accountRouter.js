@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const auth = require('../middleware/authentication');
-const authPermission = require('../middleware/authPermission');
+const auth = require('../middleware/authentication.js');
+const authPermission = require('../middleware/authPermission.js');
 
 const {
   createAccount,
@@ -14,7 +14,7 @@ const {
   editSingleAccount,
   getAccounts,
   editUserAccount,
-} = require('../controllers/accountController');
+} = require('../controllers/accountController.js');
 
 router
   .route('/')

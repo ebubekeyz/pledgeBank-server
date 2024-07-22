@@ -1,22 +1,28 @@
 require('dotenv').config();
 require('express-async-errors');
 
-const connectDB = require('./db/connect');
+const connectDB = require('./db/connect.js');
 
 const express = require('express');
 const app = express();
 
 const path = require('path');
 
-const authRouter = require('./routes/authRouter');
-const withdrawRouter = require('./routes/withdrawRouter');
+const authRouter = require('./routes/authRouter.js');
+const withdrawRouter = require('./routes/withdrawRouter.js');
 
-const notificationRouter = require('./routes/notificationRouter');
-const addFundRouter = require('./routes/addFundRouter');
-const accountRouter = require('./routes/accountRouter');
+const notificationRouter = require('./routes/notificationRouter.js');
+const addFundRouter = require('./routes/addFundRouter.js');
+const accountRouter = require('./routes/accountRouter.js');
 
-const uploadRouter = require('./routes/uploadRouter');
+const uploadRouter = require('./routes/uploadRouter.js');
 const fileUpload = require('express-fileupload');
+const cloudinary = require('cloudinary');
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_SECRET,
+});
 
 const errorHandlerMiddleware = require('./middleware/error-handler');
 const notFoundMiddleware = require('./middleware/not-found');
@@ -48,10 +54,9 @@ app.use(
 );
 app.use(xss());
 
-app.use(fileUpload());
-
 app.use(express.static('./public'));
 app.use(express.json());
+app.use(fileUpload({ useTempFiles: true }));
 
 app.use('/api/auth', authRouter);
 app.use('/api/withdraw', withdrawRouter);

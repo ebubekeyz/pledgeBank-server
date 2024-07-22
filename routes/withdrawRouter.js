@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const auth = require('../middleware/authentication');
-const authPermission = require('../middleware/authPermission');
+const auth = require('../middleware/authentication.js');
+const authPermission = require('../middleware/authPermission.js');
 
 const {
   createWithdraw,
@@ -14,7 +14,7 @@ const {
   editSingleWithdraw,
   getWithdraws,
   editUserWithdraw,
-} = require('../controllers/withdrawController');
+} = require('../controllers/withdrawController.js');
 
 router
   .route('/')

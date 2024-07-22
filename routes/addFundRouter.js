@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const auth = require('../middleware/authentication');
-const authPermission = require('../middleware/authPermission');
+const auth = require('../middleware/authentication.js');
+const authPermission = require('../middleware/authPermission.js');
 
 const {
   createAddFund,
@@ -14,7 +14,7 @@ const {
   editSingleAddFund,
   getAddFunds,
   editUserAddFund,
-} = require('../controllers/addFundController');
+} = require('../controllers/addFundController.js');
 
 router
   .route('/')
