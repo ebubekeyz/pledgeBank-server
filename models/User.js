@@ -44,6 +44,9 @@ const UserSchema = new mongoose.Schema(
     accountNumber: {
       type: String,
     },
+     routingNumber: {
+      type: String,
+    },
     sortCode: {
       type: String,
     },

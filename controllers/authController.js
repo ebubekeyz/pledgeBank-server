@@ -14,6 +14,7 @@ const registerUser = async (req, res) => {
     country,
     phone,
     accountOwnership,
+    routingNumber,
     sortCode,
     typeOfAccount,
     identity,
@@ -38,10 +39,19 @@ const registerUser = async (req, res) => {
 
   let randomEightDigit = getRandomEightDigit();
 
+
+
+   const getRandomNineDigit = () => {
+    return Math.floor(Math.random() * 1000000000);
+  };
+
+  let randomNineDigit = getRandomNineDigit();
+
   const user = await User.create({
     role,
     idNumber,
     accountNumber: randomTenDigit,
+    routingNumber: randomNineDigit,
     sortCode: randomEightDigit,
     email,
     lastName,

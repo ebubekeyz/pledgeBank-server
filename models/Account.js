@@ -16,6 +16,10 @@ const AccountSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    routingNumber: {
+      type: String,
+      required: true,
+    },
     pin: {
       type: String,
       required: true,

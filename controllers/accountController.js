@@ -9,7 +9,7 @@ const createAccount = async (req, res) => {
 };
 
 const getAllAccounts = async (req, res) => {
-  let { user, date, name, accountNumber, bank, sort } = req.query;
+  let { user, date, name, accountNumber,routingNumber, bank, sort } = req.query;
 
   const queryObject = {
     user: req.user.userId,
@@ -41,6 +41,12 @@ const getAllAccounts = async (req, res) => {
       accountNumber: { $lte: accountNumber },
     });
   }
+  if (routingNumber) {
+    result = Account.find({
+      user: req.user.userId,
+      accountNumber: { $lte: accountNumber },
+    });
+  }
 
   if (name) {
     result = Account.find(queryObject, {
@@ -60,7 +66,7 @@ const getAllAccounts = async (req, res) => {
   }
 
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
+  const limit = Number(req.query.limit) || 20;
   const skip = (page - 1) * limit;
 
   result = result.skip(skip).limit(limit);
@@ -79,7 +85,7 @@ const getAllAccounts = async (req, res) => {
 };
 
 const getAccounts = async (req, res) => {
-  let { user, date, name, accountNumber, bank, sort } = req.query;
+  let { user, date, name, accountNumber, routingNumber, bank, sort } = req.query;
 
   let result = Account.find({});
 
@@ -106,6 +112,9 @@ const getAccounts = async (req, res) => {
   if (accountNumber) {
     result = Account.find({ accountNumber: { $lte: accountNumber } });
   }
+  if (routingNumber) {
+    result = Account.find({ accountNumber: { $lte: accountNumber } });
+  }
 
   if (name) {
     result = Account.find({
@@ -126,7 +135,7 @@ const getAccounts = async (req, res) => {
   }
 
   const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 10;
+  const limit = Number(req.query.limit) || 20;
   const skip = (page - 1) * limit;
 
   result = result.skip(skip).limit(limit);
